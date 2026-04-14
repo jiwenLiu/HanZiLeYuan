@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #6a1b9a 0%, #8e24aa 50%, #ab47bc 100%);
+            min-height: 100vh;
+        }
+        .practice-card {
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .practice-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .icon-pulse {
+            animation: pulse-icon 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 标题区域 -->
+    <div class="px-6 py-8 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">✏️ 互动练习</h1>
+        <p class="text-white/80 text-lg">听、说、读、写全方位练习</p>
+    </div>
+
+    <!-- 练习统计 -->
+    <div class="px-6 mb-8">
+        <div class="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div class="flex justify-around text-center">
+                <div>
+                    <div class="text-3xl font-bold text-white">89</div>
+                    <div class="text-white/70 text-sm mt-1">听过的字</div>
+                </div>
+                <div class="w-px bg-white/20"></div>
+                <div>
+                    <div class="text-3xl font-bold text-white">73</div>
+                    <div class="text-white/70 text-sm mt-1">写过的字</div>
+                </div>
+                <div class="w-px bg-white/20"></div>
+                <div>
+                    <div class="text-3xl font-bold text-white">156</div>
+                    <div class="text-white/70 text-sm mt-1">答对题目</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 练习功能卡片 -->
+    <div class="px-6">
+        <div class="space-y-4">
+            <!-- 听一听 -->
+            <div class="practice-card bg-gradient-to-br from-pink-400/80 to-rose-600/80 rounded-2xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('listen.html')">
+                <div class="flex items-center gap-4">
+                    <div class="icon-pulse text-6xl">🎧</div>
+                    <div class="flex-1">
+                        <h3 class="text-white text-2xl font-bold mb-2">听一听</h3>
+                        <p class="text-white/80 text-sm mb-3">标准发音，跟读练习</p>
+                        <div class="flex gap-2">
+                            <span class="bg-white/30 text-white text-xs px-2 py-1 rounded">语音朗读</span>
+                            <span class="bg-white/30 text-white text-xs px-2 py-1 rounded">跟读评分</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-white text-2xl"></i>
+                </div>
+            </div>
+
+            <!-- 写一写 -->
+            <div class="practice-card bg-gradient-to-br from-blue-400/80 to-indigo-600/80 rounded-2xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="alert('手写练习功能请在视频播放页面体验')">
+                <div class="flex items-center gap-4">
+                    <div class="icon-pulse text-6xl">✍️</div>
+                    <div class="flex-1">
+                        <h3 class="text-white text-2xl font-bold mb-2">写一写</h3>
+                        <p class="text-white/80 text-sm mb-3">手写汉字，笔画识别</p>
+                        <div class="flex gap-2">
+                            <span class="bg-white/30 text-white text-xs px-2 py-1 rounded">笔画纠正</span>
+                            <span class="bg-white/30 text-white text-xs px-2 py-1 rounded">书写评分</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-white text-2xl"></i>
+                </div>
+            </div>
+
+            <!-- 答一答 -->
+            <div class="practice-card bg-gradient-to-br from-orange-400/80 to-red-600/80 rounded-2xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('quiz.html')">
+                <div class="flex items-center gap-4">
+                    <div class="icon-pulse text-6xl">❓</div>
+                    <div class="flex-1">
+                        <h3 class="text-white text-2xl font-bold mb-2">答一答</h3>
+                        <p class="text-white/80 text-sm mb-3">趣味问答，知识巩固</p>
+                        <div class="flex gap-2">
+                            <span class="bg-white/30 text-white text-xs px-2 py-1 rounded">选择题</span>
+                            <span class="bg-white/30 text-white text-xs px-2 py-1 rounded">看图识字</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-white text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+

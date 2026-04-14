@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的收藏</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+        }
+        .favorite-item {
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .favorite-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('profile.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">⭐ 我的收藏</h1>
+        <p class="text-white/80">收藏的课程和汉字</p>
+    </div>
+
+    <!-- 统计 -->
+    <div class="px-6 mb-6">
+        <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30">
+            <div class="flex justify-around text-center">
+                <div>
+                    <div class="text-2xl font-bold text-white">8</div>
+                    <div class="text-white/70 text-xs">收藏课程</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">25</div>
+                    <div class="text-white/70 text-xs">收藏汉字</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收藏的课程 -->
+    <div class="px-6 mb-6">
+        <h2 class="text-white text-lg font-bold mb-3">📚 收藏的课程</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="favorite-item bg-white/20 border border-white/30 rounded-xl p-4 cursor-pointer" onclick="navigateTo('video-player.html?video=马牛羊')">
+                <div class="text-5xl text-center mb-2">🐴</div>
+                <h3 class="text-white font-bold text-center text-sm">第1课《马牛羊》</h3>
+                <div class="flex items-center justify-center gap-1 mt-2">
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <span class="text-white/70 text-xs">15:32</span>
+                </div>
+            </div>
+            <div class="favorite-item bg-white/20 border border-white/30 rounded-xl p-4 cursor-pointer">
+                <div class="text-5xl text-center mb-2">🌳</div>
+                <h3 class="text-white font-bold text-center text-sm">第5课《木林森》</h3>
+                <div class="flex items-center justify-center gap-1 mt-2">
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <span class="text-white/70 text-xs">15:20</span>
+                </div>
+            </div>
+            <div class="favorite-item bg-white/20 border border-white/30 rounded-xl p-4 cursor-pointer">
+                <div class="text-5xl text-center mb-2">☀️</div>
+                <h3 class="text-white font-bold text-center text-sm">第14课《日月晶星》</h3>
+                <div class="flex items-center justify-center gap-1 mt-2">
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <span class="text-white/70 text-xs">12:45</span>
+                </div>
+            </div>
+            <div class="favorite-item bg-white/20 border border-white/30 rounded-xl p-4 cursor-pointer">
+                <div class="text-5xl text-center mb-2">👨</div>
+                <h3 class="text-white font-bold text-center text-sm">第23课《人从众》</h3>
+                <div class="flex items-center justify-center gap-1 mt-2">
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <span class="text-white/70 text-xs">11:50</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收藏的汉字 -->
+    <div class="px-6 mb-6">
+        <h2 class="text-white text-lg font-bold mb-3">📝 收藏的汉字</h2>
+        <div class="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30">
+            <div class="grid grid-cols-4 gap-4 text-center">
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">马</div>
+                    <div class="text-white/70 text-xs">mǎ</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">牛</div>
+                    <div class="text-white/70 text-xs">niú</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">羊</div>
+                    <div class="text-white/70 text-xs">yáng</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">木</div>
+                    <div class="text-white/70 text-xs">mù</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">林</div>
+                    <div class="text-white/70 text-xs">lín</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">森</div>
+                    <div class="text-white/70 text-xs">sēn</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">日</div>
+                    <div class="text-white/70 text-xs">rì</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">月</div>
+                    <div class="text-white/70 text-xs">yuè</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">水</div>
+                    <div class="text-white/70 text-xs">shuǐ</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">火</div>
+                    <div class="text-white/70 text-xs">huǒ</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">山</div>
+                    <div class="text-white/70 text-xs">shān</div>
+                </div>
+                <div class="cursor-pointer hover:scale-110 transition-all">
+                    <div class="text-4xl text-white font-bold mb-1">石</div>
+                    <div class="text-white/70 text-xs">shí</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #a0522d 0%, #cd853f 50%, #daa520 100%);
+            min-height: 100vh;
+        }
+        .category-card {
+            transition: all 0.3s;
+            opacity: 0.9;
+            backdrop-filter: blur(10px);
+        }
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            opacity: 1;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 标题区域 -->
+    <div class="px-6 py-8 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">📚 课程学习</h1>
+        <p class="text-white/80 text-lg">选择你喜欢的课程分类</p>
+    </div>
+
+    <!-- 学习数据卡片 -->
+    <div class="px-6 mb-8">
+        <div class="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div class="flex justify-around text-center">
+                <div>
+                    <div class="text-3xl font-bold text-white">12</div>
+                    <div class="text-white/70 text-sm mt-1">已学课程</div>
+                </div>
+                <div class="w-px bg-white/20"></div>
+                <div>
+                    <div class="text-3xl font-bold text-white">156</div>
+                    <div class="text-white/70 text-sm mt-1">已学汉字</div>
+                </div>
+                <div class="w-px bg-white/20"></div>
+                <div>
+                    <div class="text-3xl font-bold text-white">25</div>
+                    <div class="text-white/70 text-sm mt-1">连续天数</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分类卡片 -->
+    <div class="px-6">
+        <div class="grid grid-cols-3 gap-6">
+            <!-- 动物篇 -->
+            <div class="category-card bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl py-[42px] px-[30px] cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('animals.html')">
+                <div class="floating text-5xl text-center mb-5">🐴</div>
+                <h3 class="text-white text-xl font-bold text-center mb-3">动物篇</h3>
+                <p class="text-white/90 text-center text-sm mb-4">学习动物相关汉字</p>
+                <div class="flex justify-center">
+                    <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">16个视频</span>
+                </div>
+            </div>
+
+            <!-- 植物篇 -->
+            <div class="category-card bg-gradient-to-br from-emerald-400 to-teal-600 rounded-2xl py-[42px] px-[30px] cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('plants.html')">
+                <div class="floating text-5xl text-center mb-5">🌱</div>
+                <h3 class="text-white text-xl font-bold text-center mb-3">植物篇</h3>
+                <p class="text-white/90 text-center text-sm mb-4">认识植物相关汉字</p>
+                <div class="flex justify-center">
+                    <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">16个视频</span>
+                </div>
+            </div>
+
+            <!-- 自然篇 -->
+            <div class="category-card bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl py-[42px] px-[30px] cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('nature.html')">
+                <div class="floating text-5xl text-center mb-5">☀️</div>
+                <h3 class="text-white text-xl font-bold text-center mb-3">自然篇</h3>
+                <p class="text-white/90 text-center text-sm mb-4">探索自然相关汉字</p>
+                <div class="flex justify-center">
+                    <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">16个视频</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+

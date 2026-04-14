@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #1565c0 0%, #1976d2 50%, #42a5f5 100%);
+        }
+        .history-item {
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .history-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('profile.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">📖 学习记录</h1>
+        <p class="text-white/80">查看你的学习历程</p>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="px-6 mb-6">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 text-center">
+                <div class="text-3xl font-bold text-white mb-1">25</div>
+                <div class="text-white/70 text-sm">连续天数</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 text-center">
+                <div class="text-3xl font-bold text-white mb-1">156</div>
+                <div class="text-white/70 text-sm">已学汉字</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 text-center">
+                <div class="text-3xl font-bold text-white mb-1">12</div>
+                <div class="text-white/70 text-sm">完成课程</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 text-center">
+                <div class="text-3xl font-bold text-white mb-1">38</div>
+                <div class="text-white/70 text-sm">学习小时</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 今天 -->
+    <div class="px-6 mb-4">
+        <h2 class="text-white text-lg font-bold mb-3">今天</h2>
+        <div class="space-y-3">
+            <div class="history-item bg-white/10 rounded-xl p-4 border border-white/20 cursor-pointer" onclick="navigateTo('video-player.html?video=马牛羊')">
+                <div class="flex items-center gap-4">
+                    <div class="text-4xl">🐴</div>
+                    <div class="flex-1">
+                        <h3 class="text-white font-bold">第1课《马牛羊》</h3>
+                        <p class="text-white/70 text-sm mt-1">学习了15分钟</p>
+                    </div>
+                    <div class="text-white/70 text-xs">10:30</div>
+                </div>
+            </div>
+            <div class="history-item bg-white/10 rounded-xl p-4 border border-white/20 cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <div class="text-4xl">✍️</div>
+                    <div class="flex-1">
+                        <h3 class="text-white font-bold">手写练习：马</h3>
+                        <p class="text-white/70 text-sm mt-1">获得3颗星</p>
+                    </div>
+                    <div class="text-white/70 text-xs">11:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 昨天 -->
+    <div class="px-6 mb-4">
+        <h2 class="text-white text-lg font-bold mb-3">昨天</h2>
+        <div class="space-y-3">
+            <div class="history-item bg-white/10 rounded-xl p-4 border border-white/20 cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <div class="text-4xl">🌳</div>
+                    <div class="flex-1">
+                        <h3 class="text-white font-bold">第5课《木林森本末片》</h3>
+                        <p class="text-white/70 text-sm mt-1">学习了20分钟</p>
+                    </div>
+                    <div class="text-white/70 text-xs">15:20</div>
+                </div>
+            </div>
+            <div class="history-item bg-white/10 rounded-xl p-4 border border-white/20 cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <div class="text-4xl">🎯</div>
+                    <div class="flex-1">
+                        <h3 class="text-white font-bold">趣味问答</h3>
+                        <p class="text-white/70 text-sm mt-1">答对8/10题</p>
+                    </div>
+                    <div class="text-white/70 text-xs">16:45</div>
+                </div>
+            </div>
+            <div class="history-item bg-white/10 rounded-xl p-4 border border-white/20 cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <div class="text-4xl">🎧</div>
+                    <div class="flex-1">
+                        <h3 class="text-white font-bold">听一听练习</h3>
+                        <p class="text-white/70 text-sm mt-1">完成10个字</p>
+                    </div>
+                    <div class="text-white/70 text-xs">17:30</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 本周 -->
+    <div class="px-6 mb-4">
+        <h2 class="text-white text-lg font-bold mb-3">本周</h2>
+        <div class="bg-white/10 rounded-xl p-4 border border-white/20">
+            <div class="grid grid-cols-7 gap-2">
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">一</div>
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">二</div>
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">三</div>
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">四</div>
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">五</div>
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">六</div>
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">今</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-white/50 text-xs mb-2">日</div>
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white/50 text-xs">-</div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-white text-sm">本周已学习 <span class="font-bold">5</span> 天</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+

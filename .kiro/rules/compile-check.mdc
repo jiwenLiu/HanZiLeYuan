@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# HarmonyOS项目编译检查规则
+
+## 编译检查要求
+
+**重要：每次对话结束后，必须执行编译检查！**
+
+### 编译命令
+```bash
+hvigorw assembleHap
+```
+
+### 执行时机
+- 每次修改代码文件后
+- 每次添加新文件后  
+- 每次修改配置文件后
+- 每次对话完成前
+
+### 检查标准
+1. **错误数量**：编译错误必须为0
+2. **警告处理**：尽量减少编译警告
+3. **构建状态**：必须显示"BUILD SUCCESSFUL"
+
+### 常见错误类型及解决方案
+
+#### 1. ArkTS语法错误
+- **Object literal错误**：使用接口或类定义类型
+- **类型声明错误**：确保所有变量都有明确类型
+- **资源引用错误**：检查资源文件是否存在
+
+#### 2. 路由配置错误  
+- 检查[main_pages.json](mdc:entry/src/main/resources/base/profile/main_pages.json)配置
+- 确保所有页面都有`@Entry`装饰器
+
+#### 3. 导入错误
+- 检查模块导入路径
+- 确认导出的类型和函数名称正确
+
+### 项目关键文件
+- 数据模型：[DataModels.ets](mdc:entry/src/main/ets/models/DataModels.ets)
+- 路由配置：[main_pages.json](mdc:entry/src/main/resources/base/profile/main_pages.json)
+- 主入口：[Index.ets](mdc:entry/src/main/ets/pages/Index.ets)
+
+### 编译检查流程
+1. 执行编译命令：`hvigorw assembleHap`
+2. 查看编译结果
+3. 如有错误，立即修复
+4. 重新编译直到成功
+5. 记录最终编译状态
+
+### 自动化提醒
+在每次代码修改完成后，AI助手应该：
+1. 主动运行编译检查
+2. 报告编译结果
+3. 如有错误，立即修复
+4. 确保用户代码可正常运行
+
+**注意：绝不允许在有编译错误的情况下结束对话！**
+

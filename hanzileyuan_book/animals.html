@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动物篇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #004d99 0%, #0066cc 50%, #0099ff 100%);
+        }
+        
+        /* 卡片漂浮动画 - 和首页一致 */
+        @keyframes card-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .video-card {
+            transition: all 0.3s;
+            animation: card-float ease-in-out infinite;
+            opacity: 0.85;
+            backdrop-filter: blur(15px);
+        }
+        
+        .video-card:hover {
+            animation-play-state: paused;
+            transform: translateY(-8px) scale(1.02);
+            opacity: 1;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        /* 不同卡片的动画延迟 - 和首页一致 */
+        .video-card:nth-child(1) {
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+        .video-card:nth-child(2) {
+            animation-duration: 3.5s;
+            animation-delay: 0.2s;
+        }
+        .video-card:nth-child(3) {
+            animation-duration: 3.2s;
+            animation-delay: 0.4s;
+        }
+        .video-card:nth-child(4) {
+            animation-duration: 3.8s;
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes pulse-emoji {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .emoji-icon {
+            animation: pulse-emoji 2s ease-in-out infinite;
+        }
+        .back-button {
+            animation: fadeInScale 1s ease-out;
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen overflow-auto pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 主内容区域 - 上下均匀分布 -->
+    <div class="flex flex-col items-center justify-center" style="min-height: calc(100vh - 40px); padding-top: 30px; padding-bottom: 80px; padding-left: 5%; padding-right: 3%;">
+        <div class="w-full max-w-6xl mx-auto">
+            <!-- 返回按钮 + 分页信息 - 同一行 -->
+            <div class="flex items-center justify-between mb-6 relative z-50">
+                <!-- 左侧：返回按钮 -->
+                <button class="back-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('watch.html')">
+                    <i class="fas fa-arrow-left text-white text-2xl"></i>
+                </button>
+                
+                <!-- 中间：分页信息 -->
+                <div class="flex-1 text-center">
+                    <div class="inline-block bg-white/30 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/50 shadow-lg">
+                        <span class="text-white text-base font-medium drop-shadow-md">
+                            <span id="pageNumber">1</span>/<span id="totalPages">1</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- 右侧：占位（保持居中） -->
+                <div class="w-14"></div>
+            </div>
+
+            <!-- 视频卡片容器 - 带左右箭头 -->
+            <div class="flex items-center gap-6">
+                <!-- 左箭头 -->
+                <button id="prevBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all opacity-50 cursor-not-allowed" onclick="previousPage()">
+                    <i class="fas fa-chevron-left text-white text-xl"></i>
+                </button>
+
+                <!-- 卡片区域 -->
+                <div class="flex-1 relative overflow-hidden">
+                    <!-- 第一页 - 全部4个课程（2行3列） -->
+                    <div id="page1" class="grid grid-cols-3 gap-4 transition-all duration-500">
+            <!-- 第1课《马牛羊》 -->
+            <div class="video-card bg-white/20 border border-white/30 rounded-2xl p-6 cursor-pointer shadow-xl flex flex-col" onclick="navigateTo('video-player.html?video=马牛羊')">
+                <div class="emoji-icon text-7xl text-center mb-3">🐴</div>
+                <h3 class="text-white text-xl font-bold text-center mb-2 truncate">第1课《马牛羊》</h3>
+                <p class="text-white/80 text-base text-center mb-3">学习马、牛、羊三个象形字</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-white/70 text-xs">⏱️ 15:32</span>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-green-500/50 text-white text-xs px-1.5 py-0.5 rounded">已完成</span>
+                        <div class="text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第2课《鸡狗猪猫》 -->
+            <div class="video-card bg-white/20 border border-white/30 rounded-2xl p-6 cursor-pointer shadow-xl flex flex-col" onclick="navigateTo('video-player.html?video=鸡狗猪猫')">
+                <div class="emoji-icon text-7xl text-center mb-3">🐕</div>
+                <h3 class="text-white text-xl font-bold text-center mb-2 truncate">第2课《鸡狗猪猫》</h3>
+                <p class="text-white/80 text-base text-center mb-3">认识家养动物</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-white/70 text-xs">⏱️ 14:10</span>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-blue-500/50 text-white text-xs px-1.5 py-0.5 rounded">学习中</span>
+                        <div class="text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第3课《鸟鱼虫万》 -->
+            <div class="video-card bg-white/20 border border-white/30 rounded-2xl p-6 cursor-pointer shadow-xl flex flex-col" onclick="navigateTo('video-player.html?video=鸟鱼虫万')">
+                <div class="emoji-icon text-7xl text-center mb-3">🐦</div>
+                <h3 class="text-white text-xl font-bold text-center mb-2 truncate">第3课《鸟鱼虫万》</h3>
+                <p class="text-white/80 text-base text-center mb-3">天上飞、水里游、地上爬</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-white/70 text-xs">⏱️ 13:25</span>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-gray-500/50 text-white text-xs px-1.5 py-0.5 rounded">
+                            <i class="fas fa-lock mr-1"></i>未开始
+                        </span>
+                        <div class="text-gray-400 text-xs">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第4课《羽飞习翔》 -->
+            <div class="video-card bg-white/20 border border-white/30 rounded-2xl p-6 cursor-pointer shadow-xl flex flex-col" onclick="navigateTo('video-player.html?video=羽飞习翔')">
+                <div class="emoji-icon text-7xl text-center mb-3">🦅</div>
+                <h3 class="text-white text-xl font-bold text-center mb-2 truncate">第4课《羽飞习翔》</h3>
+                <p class="text-white/80 text-base text-center mb-3">鸟类飞翔的动作</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-white/70 text-xs">⏱️ 12:45</span>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-gray-500/50 text-white text-xs px-1.5 py-0.5 rounded">
+                            <i class="fas fa-lock mr-1"></i>未开始
+                        </span>
+                        <div class="text-gray-400 text-xs">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右箭头 -->
+    <button id="nextBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all opacity-50 cursor-not-allowed" onclick="nextPage()">
+        <i class="fas fa-chevron-right text-white text-xl"></i>
+    </button>
+</div>
+</div>
+</div>
+    
+    <script>
+        let currentPage = 1;
+        const totalPages = 1;
+
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        function updatePageDisplay() {
+            // 更新分页信息显示
+            document.getElementById('pageNumber').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+            
+            // 只有1页，箭头始终禁用
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        function previousPage() {
+            // 只有1页，不执行翻页
+        }
+
+        function nextPage() {
+            // 只有1页，不执行翻页
+        }
+
+        // 初始化显示
+        updatePageDisplay();
+    </script>
+</body>
+</html>
+

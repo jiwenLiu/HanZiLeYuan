@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程探索</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #a0522d 0%, #cd853f 50%, #daa520 100%);
+        }
+        
+        /* 卡片漂浮动画 - 和首页一致 */
+        @keyframes card-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .category-card {
+            transition: all 0.3s;
+            animation: card-float ease-in-out infinite;
+            opacity: 0.85;
+            backdrop-filter: blur(10px);
+        }
+        
+        .category-card:hover {
+            animation-play-state: paused;
+            transform: translateY(-8px) scale(1.02);
+            opacity: 1;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        /* 不同卡片的动画延迟 - 和首页一致 */
+        .category-card:nth-child(1) {
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+        .category-card:nth-child(2) {
+            animation-duration: 3.5s;
+            animation-delay: 0.2s;
+        }
+        .category-card:nth-child(3) {
+            animation-duration: 3.2s;
+            animation-delay: 0.4s;
+        }
+        
+        /* 图标漂浮动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* 返回按钮动画 */
+        .back-button {
+            animation: fadeInScale 1s ease-out, back-bounce 2s ease-in-out 1.5s infinite;
+        }
+        .back-button:hover {
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.5);
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes back-bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-8px); }
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen overflow-auto pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 - 左上角 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="back-button bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('home.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 主内容区域 - 居中布局 -->
+    <div class="flex items-center justify-center min-h-screen" style="margin-top: -60px; padding-left: 5%; padding-right: 3%;">
+        <div class="w-full max-w-5xl mx-auto">
+            <!-- 标题区域 -->
+            <div class="text-center mb-6">
+                <h1 class="text-4xl font-bold text-white mb-2 drop-shadow-lg">📚 课程探索</h1>
+                <p class="text-white/90 text-base">选择你感兴趣的主题开始学习</p>
+            </div>
+
+            <!-- 分类卡片容器 - 带左右箭头 -->
+            <div class="flex items-center gap-8">
+                <!-- 左箭头 -->
+                <button id="prevBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all opacity-50 cursor-not-allowed" onclick="previousPage()">
+                    <i class="fas fa-chevron-left text-white text-2xl"></i>
+                </button>
+
+                <!-- 卡片区域 -->
+                <div class="flex-1 relative overflow-hidden">
+                    <!-- 第一页 - 动物、植物、自然 -->
+                    <div id="page1" class="grid grid-cols-3 gap-6 transition-all duration-500">
+                        <!-- 动物篇 -->
+                        <div class="category-card bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl py-6 px-5 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('animals.html')">
+                            <div class="floating text-6xl text-center mb-3">🐴</div>
+                            <h3 class="text-white text-xl font-bold text-center mb-1.5">动物篇</h3>
+                            <p class="text-white/90 text-center text-xs mb-2">学习动物相关汉字</p>
+                            <div class="flex justify-center">
+                                <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">4节课</span>
+                            </div>
+                        </div>
+
+                        <!-- 植物篇 -->
+                        <div class="category-card bg-gradient-to-br from-emerald-400 to-teal-600 rounded-3xl py-6 px-5 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('plants.html')">
+                            <div class="floating text-6xl text-center mb-3" style="animation-delay: 0.2s;">🌱</div>
+                            <h3 class="text-white text-xl font-bold text-center mb-1.5">植物篇</h3>
+                            <p class="text-white/90 text-center text-xs mb-2">认识植物相关汉字</p>
+                            <div class="flex justify-center">
+                                <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">3节课</span>
+                            </div>
+                        </div>
+
+                        <!-- 自然篇 -->
+                        <div class="category-card bg-gradient-to-br from-yellow-400 to-orange-500 rounded-3xl py-6 px-5 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('nature.html')">
+                            <div class="floating text-6xl text-center mb-3" style="animation-delay: 0.4s;">☀️</div>
+                            <h3 class="text-white text-xl font-bold text-center mb-1.5">自然篇</h3>
+                            <p class="text-white/90 text-center text-xs mb-2">探索自然相关汉字</p>
+                            <div class="flex justify-center">
+                                <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">15节课</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二页 - 人体、日常、全部课程 -->
+                    <div id="page2" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 人体篇 -->
+                        <div class="category-card bg-gradient-to-br from-pink-400 to-red-500 rounded-3xl py-6 px-5 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('body.html')">
+                            <div class="floating text-6xl text-center mb-3">👨</div>
+                            <h3 class="text-white text-xl font-bold text-center mb-1.5">人体篇</h3>
+                            <p class="text-white/90 text-center text-xs mb-2">了解人体相关汉字</p>
+                            <div class="flex justify-center">
+                                <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">20节课</span>
+                            </div>
+                        </div>
+
+                        <!-- 日常篇 -->
+                        <div class="category-card bg-gradient-to-br from-purple-400 to-indigo-600 rounded-3xl py-6 px-5 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('daily.html')">
+                            <div class="floating text-6xl text-center mb-3" style="animation-delay: 0.2s;">👕</div>
+                            <h3 class="text-white text-xl font-bold text-center mb-1.5">日常篇</h3>
+                            <p class="text-white/90 text-center text-xs mb-2">学习日常生活汉字</p>
+                            <div class="flex justify-center">
+                                <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">6节课</span>
+                            </div>
+                        </div>
+
+                        <!-- 全部课程 -->
+                        <div class="category-card bg-gradient-to-br from-gray-400 to-gray-600 rounded-3xl py-6 px-5 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('all-courses.html')">
+                            <div class="floating text-6xl text-center mb-3" style="animation-delay: 0.4s;">📚</div>
+                            <h3 class="text-white text-xl font-bold text-center mb-1.5">全部课程</h3>
+                            <p class="text-white/90 text-center text-xs mb-2">浏览所有视频课程</p>
+                            <div class="flex justify-center">
+                                <span class="bg-white/30 text-white text-xs px-2.5 py-0.5 rounded-full">48节课</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右箭头 -->
+                <button id="nextBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="nextPage()">
+                    <i class="fas fa-chevron-right text-white text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- 页码指示器 -->
+            <div class="flex justify-center gap-2 mt-6">
+                <div id="dot1" class="w-3 h-3 rounded-full bg-white shadow-lg transition-all"></div>
+                <div id="dot2" class="w-3 h-3 rounded-full bg-white/40 shadow-lg transition-all"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        function updatePageDisplay() {
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dot1 = document.getElementById('dot1');
+            const dot2 = document.getElementById('dot2');
+
+            if (currentPage === 1) {
+                page1.classList.remove('hidden');
+                page2.classList.add('hidden');
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                dot1.classList.remove('bg-white/40');
+                dot1.classList.add('bg-white');
+                dot2.classList.remove('bg-white');
+                dot2.classList.add('bg-white/40');
+            } else {
+                page1.classList.add('hidden');
+                page2.classList.remove('hidden');
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                dot1.classList.remove('bg-white');
+                dot1.classList.add('bg-white/40');
+                dot2.classList.remove('bg-white/40');
+                dot2.classList.add('bg-white');
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage = 1;
+                updatePageDisplay();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < 2) {
+                currentPage = 2;
+                updatePageDisplay();
+            }
+        }
+
+        // 初始化显示
+        updatePageDisplay();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

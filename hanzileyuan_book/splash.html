@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>启动页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #8b4513 0%, #cd853f 50%, #daa520 100%);
+        }
+        .floating-char {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            font-weight: bold;
+            border-radius: 50%;
+            animation: float-up 8s infinite ease-in;
+        }
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-600px) scale(1.5); opacity: 0; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .logo-container {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        .loading-text {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="w-full h-screen overflow-hidden relative">
+    <!-- 飘浮的汉字效果 -->
+    <div class="floating-char" style="width: 60px; height: 60px; left: 10%; bottom: -60px; animation-delay: 0s; display: flex; align-items: center; justify-content: center;">字</div>
+    <div class="floating-char" style="width: 80px; height: 80px; left: 30%; bottom: -80px; animation-delay: 1s; display: flex; align-items: center; justify-content: center;">文</div>
+    <div class="floating-char" style="width: 50px; height: 50px; left: 50%; bottom: -50px; animation-delay: 2s; display: flex; align-items: center; justify-content: center;">学</div>
+    <div class="floating-char" style="width: 70px; height: 70px; left: 70%; bottom: -70px; animation-delay: 0.5s; display: flex; align-items: center; justify-content: center;">习</div>
+    <div class="floating-char" style="width: 55px; height: 55px; left: 85%; bottom: -55px; animation-delay: 1.5s; display: flex; align-items: center; justify-content: center;">乐</div>
+
+    <!-- 主内容 -->
+    <div class="flex flex-col items-center justify-center h-full relative z-10">
+        <div class="logo-container text-center">
+            <div class="w-48 h-48 mx-auto mb-8 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center shadow-2xl">
+                <span class="text-white text-8xl font-bold">汉</span>
+            </div>
+            <h1 class="text-5xl font-bold text-white mb-3">汉字乐园</h1>
+            <p class="text-2xl text-yellow-200">Chinese Character Garden</p>
+        </div>
+
+        <div class="absolute bottom-20 text-center">
+            <div class="loading-text text-white text-xl mb-4">
+                <i class="fas fa-spinner fa-spin mr-2"></i>正在加载...
+            </div>
+            <p class="text-yellow-300 text-sm">探索汉字的奇妙世界</p>
+        </div>
+    </div>
+
+    <!-- 底部装饰 -->
+    <div class="absolute bottom-0 w-full">
+        <svg viewBox="0 0 1200 200" class="w-full">
+            <path d="M0,100 Q300,50 600,100 T1200,100 L1200,200 L0,200 Z" fill="rgba(139,69,19,0.3)"/>
+            <path d="M0,120 Q300,80 600,120 T1200,120 L1200,200 L0,200 Z" fill="rgba(139,69,19,0.4)"/>
+            <path d="M0,140 Q300,110 600,140 T1200,140 L1200,200 L0,200 Z" fill="rgba(139,69,19,0.5)"/>
+        </svg>
+    </div>
+
+    <script>
+        // 3秒后自动跳转到主页
+        setTimeout(() => {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: 'home.html'
+            }, '*');
+        }, 3000);
+    </script>
+</body>
+</html>
+
+
+
+

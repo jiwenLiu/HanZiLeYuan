@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日常篇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+        }
+        
+        /* 卡片漂浮动画 - 和首页一致 */
+        @keyframes card-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .video-card {
+            transition: all 0.3s;
+            animation: card-float ease-in-out infinite;
+            opacity: 0.85;
+            backdrop-filter: blur(15px);
+        }
+        
+        .video-card:hover {
+            animation-play-state: paused;
+            transform: translateY(-8px) scale(1.02);
+            opacity: 1;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        /* 不同卡片的动画延迟 - 和首页一致 */
+        .video-card:nth-child(1) {
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+        .video-card:nth-child(2) {
+            animation-duration: 3.5s;
+            animation-delay: 0.2s;
+        }
+        .video-card:nth-child(3) {
+            animation-duration: 3.2s;
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse-emoji {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .emoji-icon {
+            animation: pulse-emoji 2s ease-in-out infinite;
+        }
+        .back-button, .arrow-button {
+            animation: fadeInScale 1s ease-out;
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen overflow-auto pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="back-button bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('watch.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 主内容区域 - 居中布局 -->
+    <div class="flex items-center justify-center min-h-screen" style="margin-top: -60px; padding-left: 5%; padding-right: 3%;">
+        <div class="w-full max-w-5xl mx-auto">
+            <!-- 标题区域 -->
+            <div class="text-center mb-6">
+                <h1 class="text-4xl font-bold text-white mb-2 drop-shadow-lg">日常篇 👕</h1>
+                <p class="text-white/90 text-base">学习日常生活汉字（第43-48课）</p>
+            </div>
+
+            <!-- 视频卡片容器 - 带左右箭头 -->
+            <div class="flex items-center gap-8">
+                <!-- 左箭头 -->
+                <button id="prevBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="previousPage()">
+                    <i class="fas fa-chevron-left text-white text-2xl"></i>
+                </button>
+
+                <!-- 卡片区域 -->
+                <div class="flex-1 relative overflow-hidden">
+                    <!-- 第一页 - 第43、44、45课 -->
+                    <div id="page1" class="grid grid-cols-3 gap-6 transition-all duration-500">
+                        <!-- 第43课《衣裘表里被》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=衣裘表里被')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👕</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第43课《衣裘表里被》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">衣服相关的汉字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 13:20</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-green-500/50 text-white text-xs px-2 py-1 rounded">已完成</span>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第44课《巾布冠带》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=巾布冠带')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🧣</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第44课《巾布冠带》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">布料和装饰</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:45</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-blue-500/50 text-white text-xs px-2 py-1 rounded">学习中</span>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第45课《贝玉朋宝》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=贝玉朋宝')">
+                            <div class="emoji-icon text-5xl text-center mb-2">💎</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第45课《贝玉朋宝》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">珍宝相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:30</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二页 - 第46、47、48课 -->
+                    <div id="page2" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第46课《沐浴洗澡》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=沐浴洗澡')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🛁</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第46课《沐浴洗澡》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">洗浴相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 10:55</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第47课《来去至到》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=来去至到')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🚶</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第47课《来去至到》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">行走相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:30</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第48课《行走跑立》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=行走跑立')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🏃</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第48课《行走跑立》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">动作相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:15</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右箭头 -->
+                <button id="nextBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="nextPage()">
+                    <i class="fas fa-chevron-right text-white text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- 页码指示器 -->
+            <div class="flex justify-center gap-2 mt-6">
+                <div id="dot1" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot2" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        // 翻页功能
+        let currentPage = 1;
+        const totalPages = 2;
+
+        function updatePageDisplay() {
+            // 隐藏所有页面
+            for (let i = 1; i <= totalPages; i++) {
+                document.getElementById('page' + i).classList.add('hidden');
+                document.getElementById('dot' + i).classList.remove('bg-white');
+                document.getElementById('dot' + i).classList.add('bg-white/50');
+            }
+            
+            // 显示当前页面
+            document.getElementById('page' + currentPage).classList.remove('hidden');
+            document.getElementById('dot' + currentPage).classList.remove('bg-white/50');
+            document.getElementById('dot' + currentPage).classList.add('bg-white');
+            
+            // 更新箭头状态
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (currentPage === 1) {
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            
+            if (currentPage === totalPages) {
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePageDisplay();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePageDisplay();
+            }
+        }
+
+        // 页面加载时初始化
+        updatePageDisplay();
+    </script>
+</body>
+</html>

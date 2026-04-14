@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组词游戏</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #059669 0%, #10b981 50%, #34d399 100%);
+        }
+        .char-card {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .char-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+        .char-card.selected {
+            background: rgba(255,215,0,0.3);
+            border-color: #fbbf24;
+            transform: scale(1.1);
+        }
+        .char-card.used {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .answer-slot {
+            transition: all 0.3s;
+            min-height: 120px;
+        }
+        .answer-slot.filled {
+            background: rgba(255,215,0,0.2);
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('quiz.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">🧩 组词游戏</h1>
+        <p class="text-white/80">选择汉字组成词语</p>
+    </div>
+
+    <!-- 进度 -->
+    <div class="px-6 mb-6">
+        <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30">
+            <div class="flex justify-between text-white text-sm mb-2">
+                <span>第 1 题 / 共 5 题</span>
+                <span>得分: <span id="score">0</span> / 100</span>
+            </div>
+            <div class="w-full bg-white/20 rounded-full h-3">
+                <div id="progress" class="bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full transition-all" style="width: 20%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 题目卡片 -->
+    <div class="px-6 mb-6">
+        <div class="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/30">
+            <!-- 问题 -->
+            <div class="text-center mb-6">
+                <div class="inline-block bg-white/20 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/30 mb-4">
+                    <span class="text-white text-xl font-bold">🐴 马 + ? = 词语</span>
+                </div>
+                <h2 class="text-white text-2xl font-bold">选择一个字组成词语</h2>
+                <p class="text-white/70 text-sm mt-2">💡 提示：想想与"马"有关的词语</p>
+            </div>
+
+            <!-- 答案区域 -->
+            <div class="answer-slot bg-white/10 border-2 border-dashed border-white/30 rounded-2xl p-6 mb-6" id="answerSlot">
+                <div class="flex items-center justify-center gap-4">
+                    <div class="text-white text-6xl font-bold">马</div>
+                    <div class="text-white text-4xl">+</div>
+                    <div id="selectedChar" class="w-24 h-24 bg-white/20 rounded-2xl flex items-center justify-center border-2 border-white/30">
+                        <span class="text-white/50 text-4xl">?</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 候选汉字 -->
+            <div class="grid grid-cols-3 gap-4 max-w-md mx-auto mb-6">
+                <div class="char-card bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectChar(this, '车', true)">
+                    <div class="text-white text-5xl font-bold mb-1">车</div>
+                    <div class="text-white/70 text-xs">chē</div>
+                </div>
+                <div class="char-card bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectChar(this, '上', false)">
+                    <div class="text-white text-5xl font-bold mb-1">上</div>
+                    <div class="text-white/70 text-xs">shàng</div>
+                </div>
+                <div class="char-card bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectChar(this, '水', false)">
+                    <div class="text-white text-5xl font-bold mb-1">水</div>
+                    <div class="text-white/70 text-xs">shuǐ</div>
+                </div>
+                <div class="char-card bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectChar(this, '路', false)">
+                    <div class="text-white text-5xl font-bold mb-1">路</div>
+                    <div class="text-white/70 text-xs">lù</div>
+                </div>
+                <div class="char-card bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectChar(this, '匹', true)">
+                    <div class="text-white text-5xl font-bold mb-1">匹</div>
+                    <div class="text-white/70 text-xs">pǐ</div>
+                </div>
+                <div class="char-card bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectChar(this, '蹄', true)">
+                    <div class="text-white text-5xl font-bold mb-1">蹄</div>
+                    <div class="text-white/70 text-xs">tí</div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="flex gap-4 justify-center">
+                <button id="clearBtn" class="bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full font-medium shadow-lg transition-all" onclick="clearSelection()">
+                    <i class="fas fa-redo mr-2"></i>重选
+                </button>
+                <button id="submitBtn" class="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-12 py-3 rounded-full font-bold shadow-xl hover:scale-105 transition-all" onclick="submitAnswer()" disabled>
+                    提交答案
+                </button>
+            </div>
+
+            <!-- 结果提示 -->
+            <div id="result" class="mt-6 text-center hidden">
+                <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 inline-block">
+                    <span class="text-white text-lg font-bold"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="px-6 mb-6">
+        <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="correct">0</div>
+                <div class="text-white/70 text-xs mt-1">答对</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="wrong">0</div>
+                <div class="text-white/70 text-xs mt-1">答错</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="words">0</div>
+                <div class="text-white/70 text-xs mt-1">组成词语</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        let selectedElement = null;
+        let selectedChar = null;
+        let isCorrect = false;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let wordsCount = 0;
+        const validWords = ['车', '匹', '蹄']; // 马车、马匹、马蹄
+
+        function selectChar(element, char, correct) {
+            if (element.classList.contains('used')) return;
+            
+            // 清除之前的选择
+            if (selectedElement) {
+                selectedElement.classList.remove('selected');
+            }
+            
+            // 标记新选择
+            element.classList.add('selected');
+            selectedElement = element;
+            selectedChar = char;
+            isCorrect = correct;
+            
+            // 更新答案区域
+            const selectedCharDiv = document.getElementById('selectedChar');
+            selectedCharDiv.innerHTML = `<span class="text-white text-5xl font-bold">${char}</span>`;
+            
+            // 答案区域高亮
+            document.getElementById('answerSlot').classList.add('filled');
+            
+            // 启用提交按钮
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').classList.remove('opacity-50');
+        }
+
+        function clearSelection() {
+            if (selectedElement) {
+                selectedElement.classList.remove('selected');
+                selectedElement = null;
+                selectedChar = null;
+                isCorrect = false;
+            }
+            
+            // 重置答案区域
+            document.getElementById('selectedChar').innerHTML = '<span class="text-white/50 text-4xl">?</span>';
+            document.getElementById('answerSlot').classList.remove('filled');
+            
+            // 禁用提交按钮
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').classList.add('opacity-50');
+            
+            // 隐藏结果
+            document.getElementById('result').classList.add('hidden');
+        }
+
+        function submitAnswer() {
+            if (!selectedChar) {
+                alert('请先选择一个汉字！');
+                return;
+            }
+
+            const resultDiv = document.getElementById('result');
+            const resultText = resultDiv.querySelector('span');
+            
+            if (isCorrect) {
+                const word = '马' + selectedChar;
+                resultText.innerHTML = `✅ 正确！<span class="text-yellow-300">"${word}"</span> 是一个词语！`;
+                resultDiv.classList.remove('hidden');
+                
+                correctCount++;
+                wordsCount++;
+                document.getElementById('correct').textContent = correctCount;
+                document.getElementById('words').textContent = wordsCount;
+                
+                const score = correctCount * 20;
+                document.getElementById('score').textContent = score;
+                
+                // 标记为已使用
+                if (selectedElement) {
+                    selectedElement.classList.add('used');
+                    selectedElement.classList.remove('selected');
+                }
+            } else {
+                resultText.textContent = '❌ 这不是一个正确的词语，再想想！';
+                resultDiv.classList.remove('hidden');
+                
+                wrongCount++;
+                document.getElementById('wrong').textContent = wrongCount;
+                
+                // 抖动效果
+                document.getElementById('answerSlot').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('answerSlot').classList.remove('shake');
+                }, 500);
+            }
+            
+            // 禁用提交按钮
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').classList.add('opacity-50');
+            
+            // 检查是否全部完成
+            const usedCount = document.querySelectorAll('.char-card.used').length;
+            if (usedCount === validWords.length) {
+                setTimeout(() => {
+                    alert('🎉 恭喜！你找到了所有正确的词语！');
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+

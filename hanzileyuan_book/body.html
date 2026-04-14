@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人体篇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #be185d 0%, #e11d48 50%, #f43f5e 100%);
+        }
+        
+        /* 卡片漂浮动画 - 和首页一致 */
+        @keyframes card-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .video-card {
+            transition: all 0.3s;
+            animation: card-float ease-in-out infinite;
+            opacity: 0.85;
+            backdrop-filter: blur(15px);
+        }
+        
+        .video-card:hover {
+            animation-play-state: paused;
+            transform: translateY(-8px) scale(1.02);
+            opacity: 1;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        /* 不同卡片的动画延迟 - 和首页一致 */
+        .video-card:nth-child(1) {
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+        .video-card:nth-child(2) {
+            animation-duration: 3.5s;
+            animation-delay: 0.2s;
+        }
+        .video-card:nth-child(3) {
+            animation-duration: 3.2s;
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse-emoji {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .emoji-icon {
+            animation: pulse-emoji 2s ease-in-out infinite;
+        }
+        .back-button, .arrow-button {
+            animation: fadeInScale 1s ease-out;
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen overflow-auto pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="back-button bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('watch.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 主内容区域 - 居中布局 -->
+    <div class="flex items-center justify-center min-h-screen" style="margin-top: -60px; padding-left: 5%; padding-right: 3%;">
+        <div class="w-full max-w-5xl mx-auto">
+            <!-- 标题区域 -->
+            <div class="text-center mb-6">
+                <h1 class="text-4xl font-bold text-white mb-2 drop-shadow-lg">人体篇 👨</h1>
+                <p class="text-white/90 text-base">认识人体相关的汉字（第23-42课，共20课）</p>
+            </div>
+
+            <!-- 视频卡片容器 - 带左右箭头 -->
+            <div class="flex items-center gap-8">
+                <!-- 左箭头 -->
+                <button id="prevBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="previousPage()">
+                    <i class="fas fa-chevron-left text-white text-2xl"></i>
+                </button>
+
+                <!-- 卡片区域 -->
+                <div class="flex-1 relative overflow-hidden">
+                    <!-- 第一页 - 第23、24、25课 -->
+                    <div id="page1" class="grid grid-cols-3 gap-6 transition-all duration-500">
+                        <!-- 第23课《人从众比北》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=人从众比北')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👨</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第23课《人从众比北》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">认识"人"字的变化</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:50</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-green-500/50 text-white text-xs px-2 py-1 rounded">已完成</span>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第24课《大太立站交文美》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=大太立站交文美')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🧍</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第24课《大太立站交文美》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">人的姿态动作</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 13:20</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-blue-500/50 text-white text-xs px-2 py-1 rounded">学习中</span>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第25课《保孙儿孩》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=保孙儿孩')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👶</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第25课《保孙儿孩》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">关于孩子的汉字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 10:45</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二页 - 第26、27、28课 -->
+                    <div id="page2" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第26课《女好母每妇安》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=女好母每妇安')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👩</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第26课《女好母每妇安》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">认识"女"字旁的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:30</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第27课《长老孝岁年》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=长老孝岁年')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👴</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第27课《长老孝岁年》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">年龄和时间</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:40</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第28课《父爸爷奶妈姐妹》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=父爸爷奶妈姐妹')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👨‍👩‍👧‍👦</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第28课《父爸爷奶妈姐妹》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">家庭成员称呼</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 14:10</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第三页 - 第29、30、31课 -->
+                    <div id="page3" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第29课《天元首页头发》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=天元首页头发')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🗣️</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第29课《天元首页头发》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">头部相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:50</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第30课《目眉面脸》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=目眉面脸')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👁️</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第30课《目眉面脸》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">眼睛和面部</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 10:35</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第31课《看见直民》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=看见直民')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👀</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第31课《看见直民》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">与看相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:25</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第四页 - 第32、33、34课 -->
+                    <div id="page4" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第32课《口舌齿牙穿》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=口舌齿牙穿')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👄</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第32课《口舌齿牙穿》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">嘴巴相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 13:10</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第33课《门户向窗开关》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=门户向窗开关')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🚪</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第33课《门户向窗开关》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">门窗相关的字</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:05</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第34课《耳听声闻聪》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=耳听声闻聪')">
+                            <div class="emoji-icon text-5xl text-center mb-2">👂</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第34课《耳听声闻聪》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">耳朵和听觉</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 10:55</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第五页 - 第35、36、37课 -->
+                    <div id="page5" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第35课《自己身心》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=自己身心')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🧘</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第35课《自己身心》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">自己和身体</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:15</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第36课《手又寸尺九友》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=手又寸尺九友')">
+                            <div class="emoji-icon text-5xl text-center mb-2">✋</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第36课《手又寸尺九友》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">手和手的动作</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:40</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第37课《止出发步走》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=止出发步走')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🦶</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第37课《止出发步走》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">脚和行走</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 10:20</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第六页 - 第38、39、40课 -->
+                    <div id="page6" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第38课《肉骨皮毛》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=肉骨皮毛')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🦴</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第38课《肉骨皮毛》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">身体的构成</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:30</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第39课《问吃吵叫哭》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=问吃吵叫哭')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🗣️</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第39课《问吃吵叫哭》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">用口的动作</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 12:15</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第40课《宫堂室房家》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=宫堂室房家')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🏠</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第40课《宫堂室房家》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">房屋和家</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 13:25</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第七页 - 第41、42课 -->
+                    <div id="page7" class="grid grid-cols-3 gap-6 transition-all duration-500 hidden">
+                        <!-- 第41课《车辇舟船》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=车辇舟船')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🚗</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第41课《车辇舟船》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">交通工具</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 11:45</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第42课《行道街市》 -->
+                        <div class="video-card bg-white/20 border border-white/30 rounded-3xl p-4 cursor-pointer shadow-xl" onclick="navigateTo('video-player.html?video=行道街市')">
+                            <div class="emoji-icon text-5xl text-center mb-2">🛣️</div>
+                            <h3 class="text-white text-lg font-bold text-center mb-1">第42课《行道街市》</h3>
+                            <p class="text-white/90 text-center text-xs mb-1.5">道路和街市</p>
+                            <div class="text-center mb-2">
+                                <span class="text-white/70 text-xs">⏱️ 10:40</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                                    <i class="fas fa-lock mr-1"></i>未开始
+                                </span>
+                                <div class="text-gray-400">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右箭头 -->
+                <button id="nextBtn" class="arrow-button bg-gradient-to-br from-yellow-400 to-orange-500 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="nextPage()">
+                    <i class="fas fa-chevron-right text-white text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- 页码指示器 -->
+            <div class="flex justify-center gap-2 mt-6">
+                <div id="dot1" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot2" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot3" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot4" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot5" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot6" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+                <div id="dot7" class="w-3 h-3 rounded-full bg-white/50 transition-all"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        // 翻页功能
+        let currentPage = 1;
+        const totalPages = 7;
+
+        function updatePageDisplay() {
+            // 隐藏所有页面
+            for (let i = 1; i <= totalPages; i++) {
+                document.getElementById('page' + i).classList.add('hidden');
+                document.getElementById('dot' + i).classList.remove('bg-white');
+                document.getElementById('dot' + i).classList.add('bg-white/50');
+            }
+            
+            // 显示当前页面
+            document.getElementById('page' + currentPage).classList.remove('hidden');
+            document.getElementById('dot' + currentPage).classList.remove('bg-white/50');
+            document.getElementById('dot' + currentPage).classList.add('bg-white');
+            
+            // 更新箭头状态
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (currentPage === 1) {
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            
+            if (currentPage === totalPages) {
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePageDisplay();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePageDisplay();
+            }
+        }
+
+        // 页面加载时初始化
+        updatePageDisplay();
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>听音识字</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
+        }
+        .answer-option {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .answer-option:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+        .answer-option.selected {
+            background: rgba(255,215,0,0.3);
+            border-color: #fbbf24;
+        }
+        .answer-option.correct {
+            background: rgba(82,196,26,0.3);
+            border-color: #52c41a;
+        }
+        .answer-option.wrong {
+            background: rgba(245,34,45,0.3);
+            border-color: #f5222d;
+        }
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+        .audio-wave {
+            animation: wave 1s ease-in-out infinite;
+        }
+        .play-btn {
+            transition: all 0.3s;
+        }
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('quiz.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">🎧 听音识字</h1>
+        <p class="text-white/80">听发音选择正确的汉字</p>
+    </div>
+
+    <!-- 进度 -->
+    <div class="px-6 mb-6">
+        <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30">
+            <div class="flex justify-between text-white text-sm mb-2">
+                <span>第 1 题 / 共 10 题</span>
+                <span>得分: <span id="score">0</span> / 100</span>
+            </div>
+            <div class="w-full bg-white/20 rounded-full h-3">
+                <div id="progress" class="bg-gradient-to-r from-purple-400 to-pink-500 h-3 rounded-full transition-all" style="width: 10%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 题目卡片 -->
+    <div class="px-6 mb-6">
+        <div class="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/30">
+            <!-- 音频播放器 -->
+            <div class="text-center mb-8">
+                <div class="inline-block bg-white/20 backdrop-blur-md rounded-3xl p-8 border border-white/30 mb-4">
+                    <button class="play-btn bg-gradient-to-br from-purple-400 to-pink-500 w-32 h-32 rounded-full flex items-center justify-center shadow-2xl" onclick="playAudio()">
+                        <i class="fas fa-volume-up text-white text-6xl"></i>
+                    </button>
+                </div>
+                
+                <!-- 音波动画 -->
+                <div class="flex justify-center gap-2 mb-4" id="audioWave" style="display: none;">
+                    <div class="audio-wave w-2 h-12 bg-white/50 rounded-full" style="animation-delay: 0s;"></div>
+                    <div class="audio-wave w-2 h-12 bg-white/50 rounded-full" style="animation-delay: 0.1s;"></div>
+                    <div class="audio-wave w-2 h-12 bg-white/50 rounded-full" style="animation-delay: 0.2s;"></div>
+                    <div class="audio-wave w-2 h-12 bg-white/50 rounded-full" style="animation-delay: 0.3s;"></div>
+                    <div class="audio-wave w-2 h-12 bg-white/50 rounded-full" style="animation-delay: 0.4s;"></div>
+                </div>
+                
+                <h2 class="text-white text-2xl font-bold">点击喇叭听发音，选择对应的汉字</h2>
+                <p class="text-white/70 text-sm mt-2">💡 提示：可以多次播放</p>
+            </div>
+
+            <!-- 选项 -->
+            <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                <div class="answer-option bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectAnswer(this, true)">
+                    <div class="text-white text-5xl font-bold mb-2">马</div>
+                    <div class="text-white/70 text-sm">mǎ</div>
+                </div>
+                <div class="answer-option bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectAnswer(this, false)">
+                    <div class="text-white text-5xl font-bold mb-2">吗</div>
+                    <div class="text-white/70 text-sm">ma</div>
+                </div>
+                <div class="answer-option bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectAnswer(this, false)">
+                    <div class="text-white text-5xl font-bold mb-2">妈</div>
+                    <div class="text-white/70 text-sm">mā</div>
+                </div>
+                <div class="answer-option bg-white/10 border-2 border-white/30 rounded-2xl p-6 text-center" onclick="selectAnswer(this, false)">
+                    <div class="text-white text-5xl font-bold mb-2">码</div>
+                    <div class="text-white/70 text-sm">mǎ</div>
+                </div>
+            </div>
+
+            <!-- 提交按钮 -->
+            <div class="mt-8 text-center">
+                <button id="submitBtn" class="bg-gradient-to-r from-purple-400 to-pink-500 text-white px-12 py-4 rounded-full text-xl font-bold shadow-xl hover:scale-105 transition-all" onclick="submitAnswer()">
+                    提交答案
+                </button>
+            </div>
+
+            <!-- 结果提示 -->
+            <div id="result" class="mt-6 text-center hidden">
+                <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 inline-block">
+                    <span class="text-white text-lg font-bold"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="px-6 mb-6">
+        <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="correct">0</div>
+                <div class="text-white/70 text-xs mt-1">答对</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="wrong">0</div>
+                <div class="text-white/70 text-xs mt-1">答错</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="accuracy">0%</div>
+                <div class="text-white/70 text-xs mt-1">正确率</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        let selectedOption = null;
+        let correctCount = 0;
+        let wrongCount = 0;
+
+        function playAudio() {
+            // 显示音波动画
+            const wave = document.getElementById('audioWave');
+            wave.style.display = 'flex';
+            
+            // 模拟语音播放（实际项目中应该播放真实音频）
+            const utterance = new SpeechSynthesisUtterance('马');
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8; // 放慢速度
+            window.speechSynthesis.speak(utterance);
+            
+            // 2秒后隐藏音波
+            setTimeout(() => {
+                wave.style.display = 'none';
+            }, 2000);
+        }
+
+        function selectAnswer(element, isCorrect) {
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            selectedOption = { element, isCorrect };
+        }
+
+        function submitAnswer() {
+            if (!selectedOption) {
+                alert('请先选择一个答案！');
+                return;
+            }
+
+            const resultDiv = document.getElementById('result');
+            const resultText = resultDiv.querySelector('span');
+            
+            if (selectedOption.isCorrect) {
+                selectedOption.element.classList.add('correct');
+                selectedOption.element.classList.remove('selected');
+                resultText.textContent = '✅ 回答正确！耳朵真灵！';
+                resultDiv.classList.remove('hidden');
+                correctCount++;
+                document.getElementById('correct').textContent = correctCount;
+                
+                const score = correctCount * 10;
+                document.getElementById('score').textContent = score;
+            } else {
+                selectedOption.element.classList.add('wrong');
+                selectedOption.element.classList.remove('selected');
+                resultText.textContent = '❌ 回答错误，再听听吧！';
+                resultDiv.classList.remove('hidden');
+                wrongCount++;
+                document.getElementById('wrong').textContent = wrongCount;
+                
+                document.querySelectorAll('.answer-option').forEach(opt => {
+                    if (opt.querySelector('.text-5xl')?.textContent === '马') {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            const total = correctCount + wrongCount;
+            const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').classList.add('opacity-50');
+            
+            setTimeout(() => {
+                alert('练习模式：点击返回按钮查看更多题目');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+
+
+

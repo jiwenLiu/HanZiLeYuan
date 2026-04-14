@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔画顺序</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
+        }
+        .stroke-btn {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .stroke-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+        .stroke-btn.selected {
+            background: rgba(255,215,0,0.3);
+            border-color: #fbbf24;
+        }
+        .stroke-btn.correct {
+            background: rgba(82,196,26,0.3);
+            border-color: #52c41a;
+        }
+        .stroke-btn.wrong {
+            background: rgba(245,34,45,0.3);
+            border-color: #f5222d;
+        }
+        @keyframes drawStroke {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .stroke-animation {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawStroke 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('quiz.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">✏️ 笔画顺序</h1>
+        <p class="text-white/80">按正确的顺序点击笔画</p>
+    </div>
+
+    <!-- 进度 -->
+    <div class="px-6 mb-6">
+        <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30">
+            <div class="flex justify-between text-white text-sm mb-2">
+                <span>当前笔画: <span id="currentStroke">0</span> / 3</span>
+                <span>得分: <span id="score">0</span></span>
+            </div>
+            <div class="w-full bg-white/20 rounded-full h-3">
+                <div id="progress" class="bg-gradient-to-r from-red-400 to-pink-500 h-3 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 题目卡片 -->
+    <div class="px-6 mb-6">
+        <div class="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/30">
+            <!-- 汉字展示 -->
+            <div class="text-center mb-8">
+                <div class="inline-block bg-white/20 backdrop-blur-md rounded-3xl p-8 border border-white/30 mb-4">
+                    <div class="text-9xl font-bold text-white relative">
+                        <div id="character">川</div>
+                        <!-- SVG笔画动画（示意） -->
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 200">
+                            <path class="stroke-animation" d="M 40 60 L 160 60" stroke="rgba(255,215,0,0.5)" stroke-width="8" fill="none" />
+                        </svg>
+                    </div>
+                </div>
+                <h2 class="text-white text-2xl font-bold mb-2">请按顺序点击笔画</h2>
+                <p class="text-white/70 text-sm">💡 提示：从左到右，从上到下</p>
+            </div>
+
+            <!-- 笔画选项 -->
+            <div class="space-y-4 max-w-md mx-auto">
+                <div class="stroke-btn bg-white/10 border-2 border-white/30 rounded-2xl p-4 flex items-center gap-4" onclick="selectStroke(this, 1)">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xl font-bold">1</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-white text-lg font-bold">第一横</div>
+                        <div class="text-white/70 text-sm">横（héng）</div>
+                    </div>
+                    <div class="text-white text-3xl">—</div>
+                </div>
+
+                <div class="stroke-btn bg-white/10 border-2 border-white/30 rounded-2xl p-4 flex items-center gap-4" onclick="selectStroke(this, 2)">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xl font-bold">2</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-white text-lg font-bold">第二横</div>
+                        <div class="text-white/70 text-sm">横（héng）</div>
+                    </div>
+                    <div class="text-white text-3xl">—</div>
+                </div>
+
+                <div class="stroke-btn bg-white/10 border-2 border-white/30 rounded-2xl p-4 flex items-center gap-4" onclick="selectStroke(this, 3)">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xl font-bold">3</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-white text-lg font-bold">第三横</div>
+                        <div class="text-white/70 text-sm">横（héng）</div>
+                    </div>
+                    <div class="text-white text-3xl">—</div>
+                </div>
+            </div>
+
+            <!-- 提示按钮 -->
+            <div class="mt-8 text-center">
+                <button class="bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full font-medium shadow-lg transition-all" onclick="showHint()">
+                    <i class="fas fa-lightbulb mr-2"></i>查看提示
+                </button>
+            </div>
+
+            <!-- 结果提示 -->
+            <div id="result" class="mt-6 text-center hidden">
+                <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 inline-block">
+                    <span class="text-white text-lg font-bold"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="px-6 mb-6">
+        <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="correct">0</div>
+                <div class="text-white/70 text-xs mt-1">正确</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="wrong">0</div>
+                <div class="text-white/70 text-xs mt-1">错误</div>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30">
+                <div class="text-white text-2xl font-bold" id="hint">3</div>
+                <div class="text-white/70 text-xs mt-1">提示次数</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+
+        let currentStep = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let hintCount = 3;
+        const totalSteps = 3;
+        const correctOrder = [1, 2, 3]; // 正确的笔画顺序
+
+        function selectStroke(element, strokeNum) {
+            if (element.classList.contains('correct') || element.classList.contains('wrong')) {
+                return; // 已经选过的不能再选
+            }
+
+            const resultDiv = document.getElementById('result');
+            const resultText = resultDiv.querySelector('span');
+            
+            if (strokeNum === correctOrder[currentStep]) {
+                // 正确
+                element.classList.add('correct');
+                currentStep++;
+                correctCount++;
+                document.getElementById('correct').textContent = correctCount;
+                document.getElementById('currentStroke').textContent = currentStep;
+                
+                // 更新进度条
+                const progress = (currentStep / totalSteps) * 100;
+                document.getElementById('progress').style.width = progress + '%';
+                
+                resultText.textContent = '✅ 正确！继续加油！';
+                resultDiv.classList.remove('hidden');
+                
+                if (currentStep === totalSteps) {
+                    setTimeout(() => {
+                        resultText.textContent = '🎉 完成！你真棒！';
+                        document.getElementById('score').textContent = '100';
+                    }, 500);
+                }
+            } else {
+                // 错误
+                element.classList.add('wrong');
+                wrongCount++;
+                document.getElementById('wrong').textContent = wrongCount;
+                
+                resultText.textContent = '❌ 不对哦，再想想！';
+                resultDiv.classList.remove('hidden');
+                
+                // 1秒后恢复
+                setTimeout(() => {
+                    element.classList.remove('wrong');
+                    resultDiv.classList.add('hidden');
+                }, 1000);
+            }
+        }
+
+        function showHint() {
+            if (hintCount <= 0) {
+                alert('提示次数已用完！');
+                return;
+            }
+            
+            hintCount--;
+            document.getElementById('hint').textContent = hintCount;
+            
+            const nextStroke = correctOrder[currentStep];
+            alert('💡 提示：下一笔应该点击第 ' + nextStroke + ' 个选项');
+        }
+    </script>
+</body>
+</html>
+
+
+

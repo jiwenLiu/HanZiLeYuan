@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉字乐园 - HarmonyOS原型展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d4af37 0%, #f4a460 100%);
+            font-family: 'HarmonyOS Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .phone-frame {
+            width: 1220px;
+            height: 580px;
+            background: #000;
+            border-radius: 50px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background: #fff;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .nav-item {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-item:hover {
+            transform: translateY(-2px);
+        }
+        .nav-item.active {
+            color: #d4af37;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-8">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">汉字乐园 - 高保真原型</h1>
+        <p class="text-white/80 mb-8">HarmonyOS Next 儿童汉字教育应用原型展示</p>
+        
+        <div class="phone-frame mx-auto">
+            <div class="phone-screen">
+                <iframe id="mainFrame" src="splash.html"></iframe>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-center gap-4 flex-wrap max-w-4xl mx-auto">
+            <button onclick="loadPage('splash.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-rocket mr-2"></i>启动页
+            </button>
+            <button onclick="loadPage('home.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-home mr-2"></i>主页
+            </button>
+            <button onclick="loadPage('explore.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-book-open mr-2"></i>课程探索
+            </button>
+            <button onclick="loadPage('watch.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-video mr-2"></i>视频学习
+            </button>
+            <button onclick="loadPage('listen.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-headphones mr-2"></i>听一听
+            </button>
+            <button onclick="loadPage('quiz.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-question-circle mr-2"></i>趣味问答
+            </button>
+            <button onclick="loadPage('achievements.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-trophy mr-2"></i>成就中心
+            </button>
+            <button onclick="loadPage('profile.html')" class="nav-item bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-sm">
+                <i class="fas fa-user mr-2"></i>个人中心
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 全局loadPage函数，供iframe内的页面调用
+        function loadPage(page) {
+            document.getElementById('mainFrame').src = page;
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.closest('.nav-item')?.classList.add('active');
+            }
+        }
+
+        // 监听来自iframe的消息
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.action === 'navigate') {
+                loadPage(e.data.page);
+            }
+        });
+    </script>
+</body>
+</html>

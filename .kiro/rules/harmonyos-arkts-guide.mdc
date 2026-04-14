@@ -1,0 +1,229 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# HarmonyOS ArkTS 开发规范指南
+
+## 基本语法规范
+
+### 1. 类型声明规范
+- 所有变量必须显式声明类型
+- 使用 TypeScript 类型系统
+- 常见类型声明示例：
+```typescript
+// 基本类型
+let name: string = 'John'
+let age: number = 25
+let isActive: boolean = true
+
+// 数组类型
+let numbers: number[] = [1, 2, 3]
+let strings: Array<string> = ['a', 'b', 'c']
+
+// 对象类型
+interface User {
+  id: number
+  name: string
+  age: number
+}
+let user: User = { id: 1, name: 'John', age: 25 }
+
+// 函数类型
+function add(x: number, y: number): number {
+  return x + y
+}
+
+// 可选类型
+interface Config {
+  title: string
+  width?: number  // 可选属性
+}
+
+// 联合类型
+let id: string | number = '123'
+
+// 类型断言
+let someValue: unknown = 'this is a string'
+let strLength: number = (someValue as string).length
+
+// 泛型
+function identity<T>(arg: T): T {
+  return arg
+}
+```
+
+### 2. 组件声明
+- 使用 `@Entry` 装饰器声明入口组件
+- 使用 `@Component` 装饰器声明自定义组件
+- 组件名称使用 PascalCase 命名规范
+```typescript
+@Entry
+@Component
+struct MyComponent {
+  // 组件内容
+}
+```
+
+### 3. 状态管理
+- 使用 `@State` 装饰器声明组件内部状态
+- 使用 `@Prop` 装饰器声明组件属性
+- 使用 `@Link` 装饰器声明双向绑定
+```typescript
+@State count: number = 0
+@Prop title: string
+@Link value: number
+```
+
+### 4. 生命周期
+- 使用 `aboutToAppear()` 处理组件即将出现时的逻辑
+- 使用 `aboutToDisappear()` 处理组件即将消失时的逻辑
+```typescript
+aboutToAppear() {
+  // 初始化逻辑
+}
+
+aboutToDisappear() {
+  // 清理逻辑
+}
+```
+
+### 5. 样式规范
+- 使用 `@Styles` 装饰器定义可复用的样式
+- 使用 `@Extend` 装饰器扩展样式
+```typescript
+@Styles function commonStyle() {
+  .width(100)
+  .height(100)
+  .backgroundColor(Color.Blue)
+}
+```
+
+### 6. 布局规范
+- 使用 Flex 布局作为主要布局方式
+- 使用 `Column`、`Row`、`Stack` 等布局组件
+```typescript
+Column() {
+  Row() {
+    Text('Hello')
+    Text('World')
+  }
+  .width('100%')
+  .justifyContent(FlexAlign.SpaceBetween)
+}
+```
+
+### 7. 事件处理
+- 使用 `onClick`、`onChange` 等事件处理器
+- 事件处理函数使用 camelCase 命名
+```typescript
+Button('Click Me')
+  .onClick(() => {
+    this.count++
+  })
+```
+
+### 8. 资源引用
+- 使用 `$r` 引用应用资源
+- 使用 `$rawfile` 引用原始文件
+- 资源文件必须放在正确的目录下：
+  - 图片资源：`entry/src/main/resources/base/media/`
+  - 字符串资源：`entry/src/main/resources/base/element/string.json`
+  - 颜色资源：`entry/src/main/resources/base/element/color.json`
+- 资源命名规范：
+  - 图片资源：`ic_` 前缀表示图标，`bg_` 前缀表示背景
+  - 字符串资源：使用小写字母和下划线
+  - 颜色资源：使用语义化命名
+- 自动创建缺失资源：
+  - 当代码中引用不存在的资源时，自动创建对应的资源文件
+  - 图标资源自动创建为 SVG 格式
+  - 字符串资源自动添加到 string.json
+  - 颜色资源自动添加到 color.json
+```typescript
+// 图片资源引用
+Image($r('app.media.ic_back'))
+Image($r('app.media.bg_welcome'))
+
+// 字符串资源引用
+Text($r('app.string.app_name'))
+
+// 颜色资源引用
+.backgroundColor($r('app.color.primary'))
+```
+
+### 9. 动画规范
+- 使用 `animate` 方法定义动画
+- 使用 `animation` 属性应用动画
+```typescript
+.animation({
+  duration: 1000,
+  curve: Curve.EaseInOut
+})
+```
+
+### 10. 错误处理
+- 使用 try-catch 处理异常
+- 使用 `console.error` 记录错误
+```typescript
+try {
+  // 可能出错的代码
+} catch (error) {
+  console.error('Error:', error)
+}
+```
+
+### 11. 性能优化
+- 避免在 `build()` 方法中进行复杂计算
+- 使用 `@Builder` 装饰器复用 UI 片段
+- 合理使用 `if/else` 和 `ForEach` 条件渲染
+
+## 最佳实践
+
+1. 组件拆分
+   - 将大型组件拆分为小型、可复用的组件
+   - 每个组件文件不超过 300 行
+
+2. 状态管理
+   - 使用 `@State` 管理组件内部状态
+   - 使用 `@Prop` 和 `@Link` 进行组件间通信
+   - `@Prop` 装饰器不能用于函数类型的属性
+   - 避免过度使用全局状态
+
+3. 样式管理
+   - 使用 `@Styles` 定义通用样式
+   - 遵循 BEM 命名规范
+   - 使用主题变量保持一致性
+
+4. 代码组织
+   - 相关组件放在同一目录下
+   - 使用 index.ets 作为目录入口文件
+   - 保持文件结构清晰
+
+5. 注释规范
+   - 为复杂逻辑添加注释
+   - 使用 JSDoc 风格注释
+   - 保持注释的及时更新
+
+## 常见错误避免
+
+1. 避免在 `build()` 方法中修改状态
+2. 避免过度嵌套组件
+3. 避免使用内联样式
+4. 避免在循环中创建组件
+5. 避免使用全局变量
+6. 避免在组件中直接操作 DOM
+
+## 调试技巧
+
+1. 使用 `console.info()` 输出调试信息
+2. 使用 DevEco Studio 的调试工具
+3. 使用 `@Preview` 装饰器预览组件
+4. 使用 `console.error()` 记录错误信息
+
+## 参考资源
+
+- [HarmonyOS 官方文档](mdc:https:/developer.harmonyos.com/cn/docs/documentation/doc-guides/arkts-overview-0000001054092901)
+- [ArkTS 语言规范](mdc:https:/developer.harmonyos.com/cn/docs/documentation/doc-guides/arkts-language-specification-0000001054092902)
+- [组件开发指南](mdc:https:/developer.harmonyos.com/cn/docs/documentation/doc-guides/ui-arkts-component-0000001054092903)
+
+

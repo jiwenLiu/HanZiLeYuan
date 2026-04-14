@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "汉字乐园 - 儿童汉字学习应用"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "汉字乐园主入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "汉字乐园"
+    },
+    {
+      "name": "permission_read_media",
+      "value": "用于读取外部存储中的视频文件"
+    },
+    {
+      "name": "permission_write_media",
+      "value": "用于管理外部存储中的视频文件"
+    }
+  ]
+}

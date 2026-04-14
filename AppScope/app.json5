@@ -1,0 +1,10 @@
+{
+  "app": {
+    "bundleName": "com.liujiwen.tools.easychinese",
+    "vendor": "中软国际科技服务有限公司",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
+    "icon": "$media:icon",
+    "label": "$string:app_name"
+  }
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习类成就</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+        }
+        .achievement-card {
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .achievement-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        .achievement-card.unlocked {
+            animation: glow 2s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+            50% { box-shadow: 0 0 40px rgba(255,215,0,0.8); }
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('achievements.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">✍️ 练习类成就</h1>
+        <p class="text-white/80">完成练习任务获得成就</p>
+    </div>
+
+    <!-- 统计 -->
+    <div class="px-6 mb-6">
+        <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30">
+            <div class="flex justify-around text-center">
+                <div>
+                    <div class="text-2xl font-bold text-white">3</div>
+                    <div class="text-white/70 text-xs">已获得</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">2</div>
+                    <div class="text-white/70 text-xs">进行中</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">7</div>
+                    <div class="text-white/70 text-xs">总数</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成就列表 -->
+    <div class="px-6 space-y-4">
+        <!-- 已解锁 -->
+        <div class="achievement-card unlocked bg-gradient-to-br from-yellow-400/30 to-orange-500/30 border-2 border-yellow-400/50 rounded-2xl p-4">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl">✍️</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">书法家</h3>
+                    <p class="text-white/80 text-sm mb-2">手写练习获得3颗星10次</p>
+                    <span class="bg-green-500/50 text-white text-xs px-2 py-1 rounded">已获得 2024-11-22</span>
+                </div>
+                <div class="text-yellow-400 text-3xl">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievement-card unlocked bg-gradient-to-br from-yellow-400/30 to-orange-500/30 border-2 border-yellow-400/50 rounded-2xl p-4">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl">🎨</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">勤学苦练</h3>
+                    <p class="text-white/80 text-sm mb-2">完成100次手写练习</p>
+                    <span class="bg-green-500/50 text-white text-xs px-2 py-1 rounded">已获得 2024-11-24</span>
+                </div>
+                <div class="text-yellow-400 text-3xl">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievement-card unlocked bg-gradient-to-br from-yellow-400/30 to-orange-500/30 border-2 border-yellow-400/50 rounded-2xl p-4">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl">🎧</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">好耳朵</h3>
+                    <p class="text-white/80 text-sm mb-2">听力练习完成50次</p>
+                    <span class="bg-green-500/50 text-white text-xs px-2 py-1 rounded">已获得 2024-11-26</span>
+                </div>
+                <div class="text-yellow-400 text-3xl">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 进行中 -->
+        <div class="achievement-card bg-white/20 border-2 border-white/30 rounded-2xl p-4">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl">📝</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">书写大师</h3>
+                    <p class="text-white/80 text-sm mb-2">手写练习获得3颗星50次</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="bg-blue-500/50 text-white text-xs px-2 py-1 rounded">进行中</span>
+                        <div class="flex-1 bg-white/20 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 34%"></div>
+                        </div>
+                        <span class="text-white/70 text-xs">17/50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievement-card bg-white/20 border-2 border-white/30 rounded-2xl p-4">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl">🗣️</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">朗读之星</h3>
+                    <p class="text-white/80 text-sm mb-2">完成200次跟读练习</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="bg-blue-500/50 text-white text-xs px-2 py-1 rounded">进行中</span>
+                        <div class="flex-1 bg-white/20 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 55%"></div>
+                        </div>
+                        <span class="text-white/70 text-xs">110/200</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 未解锁 -->
+        <div class="achievement-card bg-white/10 border-2 border-white/20 rounded-2xl p-4 opacity-50">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl filter grayscale">👑</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">完美主义者</h3>
+                    <p class="text-white/60 text-sm mb-2">所有手写练习获得3颗星</p>
+                    <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                        <i class="fas fa-lock mr-1"></i>未解锁
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievement-card bg-white/10 border-2 border-white/20 rounded-2xl p-4 opacity-50">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl filter grayscale">🖋️</div>
+                <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-1">书法大家</h3>
+                    <p class="text-white/60 text-sm mb-2">完成500次手写练习</p>
+                    <span class="bg-gray-500/50 text-white text-xs px-2 py-1 rounded">
+                        <i class="fas fa-lock mr-1"></i>未解锁
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,19 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- 圆形 - 黄橙色渐变，与返回按钮颜色一致 -->
+  <defs>
+    <linearGradient id="yellowOrangeGradientLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="40" cy="40" r="38" fill="url(#yellowOrangeGradientLeft)"/>
+  
+  <!-- 白色左箭头 -->
+  <path d="M 48 25 L 32 40 L 48 55" 
+        stroke="white" 
+        stroke-width="5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+</svg>
+

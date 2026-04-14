@@ -1,0 +1,20 @@
+{
+  "src": [
+    "pages/SplashPage",
+    "pages/HomePage",
+    "pages/ExplorePage",
+    "pages/categories/AnimalsPage",
+    "pages/categories/PlantsPage",
+    "pages/categories/NaturePage",
+    "pages/categories/BodyPage",
+    "pages/categories/DailyPage",
+    "pages/WatchPage",
+    "pages/ListenPage",
+    "pages/QuizPage",
+    "pages/AchievementsPage",
+    "pages/ProfilePage",
+    "pages/VideoPlayerPage",
+    "pages/SettingsPage",
+    "pages/PrivacyPolicyPage"
+  ]
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助与反馈</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
+        }
+        .faq-item {
+            transition: all 0.3s;
+        }
+        .faq-item:hover {
+            background: rgba(255,255,255,0.15);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('profile.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 标题 -->
+    <div class="px-6 pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-white mb-2">💬 帮助与反馈</h1>
+        <p class="text-white/80">我们随时为你解答</p>
+    </div>
+
+    <!-- 常见问题 -->
+    <div class="px-6 mb-6">
+        <h2 class="text-white text-lg font-bold mb-3">❓ 常见问题</h2>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20">
+            <div class="faq-item px-4 py-4 border-b border-white/10 cursor-pointer">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-white font-medium">如何开始学习？</h4>
+                    <i class="fas fa-chevron-right text-white/50"></i>
+                </div>
+            </div>
+            <div class="faq-item px-4 py-4 border-b border-white/10 cursor-pointer">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-white font-medium">如何获得成就？</h4>
+                    <i class="fas fa-chevron-right text-white/50"></i>
+                </div>
+            </div>
+            <div class="faq-item px-4 py-4 border-b border-white/10 cursor-pointer">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-white font-medium">如何练习手写？</h4>
+                    <i class="fas fa-chevron-right text-white/50"></i>
+                </div>
+            </div>
+            <div class="faq-item px-4 py-4 border-b border-white/10 cursor-pointer">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-white font-medium">视频无法播放怎么办？</h4>
+                    <i class="fas fa-chevron-right text-white/50"></i>
+                </div>
+            </div>
+            <div class="faq-item px-4 py-4 cursor-pointer">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-white font-medium">如何重置学习进度？</h4>
+                    <i class="fas fa-chevron-right text-white/50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 反馈表单 -->
+    <div class="px-6 mb-6">
+        <h2 class="text-white text-lg font-bold mb-3">✍️ 提交反馈</h2>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+            <div class="mb-4">
+                <label class="text-white text-sm font-medium mb-2 block">反馈类型</label>
+                <select class="w-full bg-white/20 text-white border border-white/30 rounded-xl px-4 py-3">
+                    <option>功能建议</option>
+                    <option>问题反馈</option>
+                    <option>内容错误</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="text-white text-sm font-medium mb-2 block">反馈内容</label>
+                <textarea 
+                    class="w-full bg-white/20 text-white border border-white/30 rounded-xl px-4 py-3 h-32 resize-none" 
+                    placeholder="请详细描述你的问题或建议..."
+                ></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="text-white text-sm font-medium mb-2 block">联系方式（可选）</label>
+                <input 
+                    type="text" 
+                    class="w-full bg-white/20 text-white border border-white/30 rounded-xl px-4 py-3" 
+                    placeholder="邮箱或手机号"
+                />
+            </div>
+            <button class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all">
+                提交反馈
+            </button>
+        </div>
+    </div>
+
+    <!-- 联系我们 -->
+    <div class="px-6">
+        <h2 class="text-white text-lg font-bold mb-3">📞 联系我们</h2>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+            <div class="flex items-center gap-3 mb-3 cursor-pointer hover:bg-white/10 p-2 rounded-lg transition-all">
+                <i class="fas fa-envelope text-white text-xl"></i>
+                <div>
+                    <div class="text-white text-sm">邮箱</div>
+                    <div class="text-white/70 text-xs">support@hanzileyuan.com</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 mb-3 cursor-pointer hover:bg-white/10 p-2 rounded-lg transition-all">
+                <i class="fab fa-weixin text-white text-xl"></i>
+                <div>
+                    <div class="text-white text-sm">微信</div>
+                    <div class="text-white/70 text-xs">HanZiLeYuan2024</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 cursor-pointer hover:bg-white/10 p-2 rounded-lg transition-all">
+                <i class="fas fa-phone text-white text-xl"></i>
+                <div>
+                    <div class="text-white text-sm">客服热线</div>
+                    <div class="text-white/70 text-xs">400-123-4567</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+

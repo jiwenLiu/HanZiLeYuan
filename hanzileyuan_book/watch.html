@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频学习</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(180deg, #4a1d96 0%, #6b2fb5 50%, #8b4fd9 100%);
+        }
+        .category-card {
+            transition: all 0.3s;
+            backdrop-filter: blur(15px);
+        }
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .video-thumb {
+            transition: all 0.3s;
+        }
+        .video-thumb:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen overflow-auto pb-8">
+    <!-- 状态栏 -->
+    <div class="bg-black/30 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-sm sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+        </div>
+        <div class="font-medium">10:24</div>
+        <div class="flex items-center gap-2">
+            <span>85%</span>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="absolute top-14 left-8 z-20">
+        <button class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer shadow-xl hover:scale-110 transition-all" onclick="navigateTo('home.html')">
+            <i class="fas fa-arrow-left text-white text-3xl"></i>
+        </button>
+    </div>
+
+    <!-- 页面标题 -->
+    <div class="px-6 py-6 text-center pt-16">
+        <h1 class="text-4xl font-bold text-white mb-2">🎬 视频学习</h1>
+        <p class="text-white/80 text-base">48课汉字启蒙视频</p>
+    </div>
+
+    <div class="px-6 pb-8">
+        <!-- 最近观看 -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold text-white">📺 最近观看</h2>
+                <button class="text-white/80 hover:text-white text-xs" onclick="navigateTo('recent-watch.html')">
+                    查看全部 <i class="fas fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+                <!-- 最近观看视频1 -->
+                <div class="video-thumb bg-white/20 border border-white/30 rounded-lg overflow-hidden cursor-pointer" onclick="navigateTo('video-player.html?video=马牛羊')">
+                    <div class="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                        <span class="text-4xl">🐴</span>
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-4xl opacity-80"></i>
+                        </div>
+                    </div>
+                    <div class="p-2.5">
+                        <h3 class="text-white font-bold text-xs mb-1">第1课《马牛羊》</h3>
+                        <div class="flex items-center justify-between text-white/70 text-xs">
+                            <span>已学 80%</span>
+                            <span>15:32</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最近观看视频2 -->
+                <div class="video-thumb bg-white/20 border border-white/30 rounded-lg overflow-hidden cursor-pointer" onclick="navigateTo('video-player.html?video=木林森本末片')">
+                    <div class="aspect-video bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center relative">
+                        <span class="text-4xl">🌳</span>
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-4xl opacity-80"></i>
+                        </div>
+                    </div>
+                    <div class="p-2.5">
+                        <h3 class="text-white font-bold text-xs mb-1">第5课《木林森本末片》</h3>
+                        <div class="flex items-center justify-between text-white/70 text-xs">
+                            <span>已学 45%</span>
+                            <span>15:20</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最近观看视频3 -->
+                <div class="video-thumb bg-white/20 border border-white/30 rounded-lg overflow-hidden cursor-pointer" onclick="navigateTo('video-player.html?video=日月晶星')">
+                    <div class="aspect-video bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center relative">
+                        <span class="text-4xl">☀️</span>
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-4xl opacity-80"></i>
+                        </div>
+                    </div>
+                    <div class="p-2.5">
+                        <h3 class="text-white font-bold text-xs mb-1">第14课《日月晶星》</h3>
+                        <div class="flex items-center justify-between text-white/70 text-xs">
+                            <span>已学 20%</span>
+                            <span>12:45</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 课程分类 -->
+        <div>
+            <h2 class="text-2xl font-bold text-white mb-4">📚 课程分类</h2>
+            <div class="grid grid-cols-3 gap-4 max-w-4xl mx-auto">
+                <!-- 动物篇 -->
+                <div class="category-card bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('animals.html')">
+                    <div class="floating text-4xl text-center mb-3">🐴</div>
+                    <h3 class="text-white text-xl font-bold text-center mb-1.5">动物篇</h3>
+                    <p class="text-white/90 text-center text-xs mb-2">认识动物相关汉字</p>
+                    <div class="flex justify-center gap-1.5">
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">第1-4课</span>
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">4节课</span>
+                    </div>
+                </div>
+
+                <!-- 植物篇 -->
+                <div class="category-card bg-gradient-to-br from-emerald-400 to-teal-600 rounded-xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('plants.html')">
+                    <div class="floating text-4xl text-center mb-3">🌱</div>
+                    <h3 class="text-white text-xl font-bold text-center mb-1.5">植物篇</h3>
+                    <p class="text-white/90 text-center text-xs mb-2">认识植物相关汉字</p>
+                    <div class="flex justify-center gap-1.5">
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">第5-7课</span>
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">3节课</span>
+                    </div>
+                </div>
+
+                <!-- 自然篇 -->
+                <div class="category-card bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('nature.html')">
+                    <div class="floating text-4xl text-center mb-3">☀️</div>
+                    <h3 class="text-white text-xl font-bold text-center mb-1.5">自然篇</h3>
+                    <p class="text-white/90 text-center text-xs mb-2">探索自然相关汉字</p>
+                    <div class="flex justify-center gap-1.5">
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">第8-22课</span>
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">15节课</span>
+                    </div>
+                </div>
+
+                <!-- 人体篇 -->
+                <div class="category-card bg-gradient-to-br from-pink-400 to-rose-600 rounded-xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('body.html')">
+                    <div class="floating text-4xl text-center mb-3">👨</div>
+                    <h3 class="text-white text-xl font-bold text-center mb-1.5">人体篇</h3>
+                    <p class="text-white/90 text-center text-xs mb-2">认识人体相关汉字</p>
+                    <div class="flex justify-center gap-1.5">
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">第23-42课</span>
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">20节课</span>
+                    </div>
+                </div>
+
+                <!-- 日常篇 -->
+                <div class="category-card bg-gradient-to-br from-purple-400 to-indigo-600 rounded-xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('daily.html')">
+                    <div class="floating text-4xl text-center mb-3">👕</div>
+                    <h3 class="text-white text-xl font-bold text-center mb-1.5">日常篇</h3>
+                    <p class="text-white/90 text-center text-xs mb-2">学习日常生活汉字</p>
+                    <div class="flex justify-center gap-1.5">
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">第43-48课</span>
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">6节课</span>
+                    </div>
+                </div>
+
+                <!-- 全部课程 -->
+                <div class="category-card bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl p-6 cursor-pointer shadow-2xl border border-white/20" onclick="navigateTo('all-courses.html')">
+                    <div class="floating text-4xl text-center mb-3">📖</div>
+                    <h3 class="text-white text-xl font-bold text-center mb-1.5">全部课程</h3>
+                    <p class="text-white/90 text-center text-xs mb-2">浏览全部48课内容</p>
+                    <div class="flex justify-center gap-1.5">
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">第1-48课</span>
+                        <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full">48节课</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function navigateTo(page) {
+            window.parent.postMessage({
+                action: 'navigate',
+                page: page
+            }, '*');
+        }
+    </script>
+</body>
+</html>
+
+
+
+

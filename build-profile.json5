@@ -1,0 +1,56 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\xiaomi\\.ohos\\config\\default_HanZiLeYuan_FKRrzk-jk0_jBKQmZGxRHOcBYrcLnBRcY7NVEFxx-go=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B488103898932FB1EE41EBE8927C6B72FD191CDF2DCCC1588AD2F7E1140B35507C92DD50B1A3BF2",
+          "profile": "C:\\Users\\xiaomi\\.ohos\\config\\default_HanZiLeYuan_FKRrzk-jk0_jBKQmZGxRHOcBYrcLnBRcY7NVEFxx-go=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\xiaomi\\.ohos\\config\\default_HanZiLeYuan_FKRrzk-jk0_jBKQmZGxRHOcBYrcLnBRcY7NVEFxx-go=.p12",
+          "storePassword": "0000001B68C13ED61415A94440511621CB76C5CB30A2C0D9808938BB0629E743EDA20AD8AFA102CDB96845"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "release",
+        "targetSdkVersion": "6.0.0(20)",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}
